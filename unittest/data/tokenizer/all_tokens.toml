@@ -1,0 +1,75 @@
+
+# This document is for the tokenizer tests and contains each possible token.
+# It is not meant to make any sense.
+
+bare_key0=1_190_280
+bare_key1=+2_938_981
+bare_key2 = -2291822
+bare_key3 ="text\n\\\"\r\b\t\f\ucdbf\U0001981a"
+    bare_key4= 'text\n' # comment
+       bare_key5 = """multi"""
+ bare_key6 = '''multi'''
+   bare_key7 = """
+        multi\
+    """
+bare_key8 = '''
+        multi
+    '''
+bare_key9 = """multi
+        multi"""
+bare_key10 = '''multi
+        multi'''
+"str key1"   =   false
+'str key2' = true
+bare.key1 =1.0
+"bare".'key2' =-1.0
+012345 = 0xabCdEf92
+bare_key12 = 0x1283_1829
+bare_key13 = 0o01234567
+bare_key14 = 0b10000010
+bare_key15 = +1.0
+bare_key16 = 3.1415
+bare_key17 = -0.01
+bare_key18 = 5e+22
+bare_key19 = 1e06
+bare_key20 = -2E-2
+bare_key21 = 6.626e-34
+bare_key21 = inf
+bare_key21 = +inf
+bare_key21 = -inf
+bare_key21 = nan
+bare_key21 = +nan
+bare_key21 = -nan
+bare_key21 = 224_617.445_991_228
+bare_key22 = 1979-05-27T07:32:00Z
+bare_key23 = 1979-05-27T00:32:00-07:00
+bare_key24 = 1979-05-27T00:32:00.999999-07:00
+bare_key25 = 1979-05-27 07:32:00Z
+bare_key26 = 1979-05-27T07:32:00
+bare_key27 = 1979-05-27T00:32:00.999999
+bare_key28 = 1979-05-27
+bare_key29 = 07:32:00
+bare_key30 = 00:32:00.999999
+bare_key31 = [ 1, 2,
+    3, ]
+bare_key32 = [ "a", "b", "c" ]
+bare_key33 = [ [ 1, 2 ],
+    [3, 4, 5, ] ]
+bare_key34 = [ [ 1, 2 ], ["a", "b", "c"] ]
+bare_key35 = [ "text", 'text', """text""", '''text''' ]
+bare_key36 = [ 0.7, 0.2, 0.5, 1, 2, 5 ]
+bare_key37 = [
+    "Test <test@example.com>",
+    { name = "test", email = "bazqux@example.com", url = "https://example.com/" }
+]
+[bare_table-1]
+[bare_table-2]
+bare_key38 = 1
+bare_key38.value = 1
+bare_key38 . "value" = 1
+[bare . table-1]
+[[bare_list_1]]
+bare_key38 = 1
+bare_key38.value = 1
+-bare_key40 = 1
+_bare_key41 = 1

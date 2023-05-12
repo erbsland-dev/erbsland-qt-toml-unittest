@@ -1,0 +1,6 @@
+[submodule "erbsland-unittest"]
+	path = erbsland-unittest
+	url = https://github.com/erbsland-dev/erbsland-unittest.git
+[submodule "erbsland-qt-toml"]
+	path = erbsland-qt-toml
+	url = https://github.com/erbsland-dev/erbsland-qt-toml.git
