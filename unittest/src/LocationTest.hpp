@@ -56,16 +56,16 @@ public:
 
     void testIsNegative() {
         Location l1;
-        REQUIRE_FALSE(l1.isNegative());
+        REQUIRE_FALSE(l1.isNotSet());
 
         Location l2{-1, 0, 0};
-        REQUIRE(l2.isNegative());
+        REQUIRE(l2.isNotSet());
 
         Location l3{0, -1, 0};
-        REQUIRE(l3.isNegative());
+        REQUIRE(l3.isNotSet());
 
         Location l4{0, 0, -1};
-        REQUIRE(l4.isNegative());
+        REQUIRE(l4.isNotSet());
     }
 };
 

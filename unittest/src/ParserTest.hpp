@@ -167,6 +167,20 @@ public:
         return typeString;
     }
 
+    void verifyAllValuesHaveLocation(const ValuePtr &value) {
+        REQUIRE_FALSE(value->locationRange().begin().isNotSet());
+        REQUIRE_FALSE(value->locationRange().end().isNotSet());
+        if (value->isTable()) {
+            for (const auto &[key, tableValue] : value->toTable()) {
+                verifyAllValuesHaveLocation(tableValue);
+            }
+        } else if (value->isArray()) {
+            for (const auto &arrayValue : value->toArray()) {
+                verifyAllValuesHaveLocation(arrayValue);
+            }
+        }
+    }
+
     /// Verify the given TOML file.
     ///
     /// For valid files, also expect a JSON file with the same name and `.json` suffix.
@@ -176,8 +190,9 @@ public:
     ///
     void verifyFile(const fs::path &tomlPath, Specification specification) {
         Parser parser{specification};
-        auto value = parser.parseFile(QString::fromStdString(tomlPath.string()));
+        auto value = parser.parseFileOrThrow(QString::fromStdString(tomlPath.string()));
         REQUIRE(value->isTable());
+        WITH_CONTEXT(verifyAllValuesHaveLocation(value));
         // read the corresponding JSON file.
         auto jsonPath = tomlPath;
         jsonPath.replace_extension(fs::path(".json"));
@@ -322,7 +337,7 @@ public:
             for (const auto &path: testFiles) {
                 _testPath = path;
                 Parser parser{specification};
-                REQUIRE_THROWS_AS(elqt::toml::Error, parser.parseFile(QString::fromStdString(path.string())));
+                REQUIRE_THROWS_AS(elqt::toml::Error, parser.parseFileOrThrow(QString::fromStdString(path.string())));
             }
         }
     }

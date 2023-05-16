@@ -1,6 +1,14 @@
 # Unit Test for the Erbsland Qt TOML library.
 
-This is the unit test for the Erbsland Qt TOML library.
+This is the unit test for the Erbsland Qt TOML library. The library can be found here:
+
+👉 [Erbsland Qt TOML Library](https://github.com/erbsland-dev/erbsland-qt-toml/) 👈
+
+## Documentation
+
+Detailed [documentation](https://erbsland-dev.github.io/erbsland-qt-toml/) can be found here:
+
+👉 [Documentation](https://erbsland-dev.github.io/erbsland-qt-toml/) 👈
 
 ## Acknowledgements
 

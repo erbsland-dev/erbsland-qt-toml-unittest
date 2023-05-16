@@ -50,7 +50,7 @@ public:
         // This test mainly verifies if there is a change on tokenizer level how data is tokenized.
         auto filePath = unitTestExecutablePath().parent_path() / "data" / "tokenizer" / "all_tokens.toml";
         auto filePathQt = QString::fromStdString(filePath.string());
-        auto inputStream = InputStream::createFromFile(filePathQt);
+        auto inputStream = InputStream::createFromFileOrThrow(filePathQt);
         auto expectedTokens = std::vector<Token>{
             Token{TokenType::NewLine, QString{}},
             Token{TokenType::Comment, QString{}},
@@ -572,7 +572,7 @@ public:
         // That's no real test. It just outputs the read tokens to update the test above.
         auto filePath = unitTestExecutablePath().parent_path() / "data" / "Tokenizer" / "all_tokens.toml";
         auto filePathQt = QString::fromStdString(filePath.string());
-        auto inputStream = InputStream::createFromFile(filePathQt);
+        auto inputStream = InputStream::createFromFileOrThrow(filePathQt);
         Tokenizer tokenizer{Specification::Version_1_1};
         tokenizer.startWithStream(inputStream);
         token = tokenizer.read();

@@ -33,19 +33,19 @@ public:
         REQUIRE_FALSE(inputStream->atEnd());
         REQUIRE(inputStream->type() == InputStream::Type::String);
         REQUIRE(inputStream->document() == QStringLiteral("[string]"));
-        auto c = inputStream->read();
+        auto c = inputStream->readOrThrow();
         REQUIRE(c == 'a');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'b');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'c');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 0x26ab);
         REQUIRE(inputStream->atEnd());
-        c = inputStream->read(); // undefined, but should not crash.
+        c = inputStream->readOrThrow(); // undefined, but should not crash.
         REQUIRE(inputStream->atEnd()); // still at end.
     }
 
@@ -62,43 +62,43 @@ public:
         REQUIRE_FALSE(inputStream->atEnd());
         REQUIRE(inputStream->type() == InputStream::Type::String);
         REQUIRE(inputStream->document() == QStringLiteral("[string]"));
-        auto c = inputStream->read();
+        auto c = inputStream->readOrThrow();
         REQUIRE(c == 'a');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'b');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'c');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 0x26abU);
         REQUIRE(inputStream->atEnd());
-        c = inputStream->read(); // undefined, but should not crash.
+        c = inputStream->readOrThrow(); // undefined, but should not crash.
         REQUIRE(inputStream->atEnd()); // still at end.
     }
 
     void testFile() {
         auto filePath = unitTestExecutablePath().parent_path() / "data" / "input-stream" / "minimal_read.txt";
         auto filePathQt = QString::fromStdString(filePath.string());
-        auto inputStream = InputStream::createFromFile(filePathQt);
+        auto inputStream = InputStream::createFromFileOrThrow(filePathQt);
         REQUIRE(inputStream != nullptr);
         REQUIRE_FALSE(inputStream->atEnd());
         REQUIRE(inputStream->type() == InputStream::Type::File);
         REQUIRE(inputStream->document() == filePathQt);
-        auto c = inputStream->read();
+        auto c = inputStream->readOrThrow();
         REQUIRE(c == 'a');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'b');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 'c');
         REQUIRE_FALSE(inputStream->atEnd());
-        c = inputStream->read();
+        c = inputStream->readOrThrow();
         REQUIRE(c == 0x26abU);
         REQUIRE(inputStream->atEnd());
-        c = inputStream->read(); // undefined, but should not crash.
+        c = inputStream->readOrThrow(); // undefined, but should not crash.
         REQUIRE(inputStream->atEnd()); // still at end.
     }
 };
