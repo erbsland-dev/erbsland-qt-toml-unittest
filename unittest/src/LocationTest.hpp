@@ -24,48 +24,70 @@ using elqt::toml::Location;
 
 class LocationTest : public el::UnitTest {
 public:
+    Location location;
+
     void testConstruction() {
-        Location l1;
-        REQUIRE(l1.index() == 0);
-        REQUIRE(l1.line() == 1);
-        REQUIRE(l1.column() == 1);
+        location = {};
+        REQUIRE(location.index() == 0);
+        REQUIRE(location.line() == 1);
+        REQUIRE(location.column() == 1);
 
-        Location l2{5, 2, 3};
-        REQUIRE(l2.index() == 5);
-        REQUIRE(l2.line() == 2);
-        REQUIRE(l2.column() == 3);
+        location = Location{5, 2, 3};
+        REQUIRE(location.index() == 5);
+        REQUIRE(location.line() == 2);
+        REQUIRE(location.column() == 3);
 
-        Location l3{-1, -1, -1};
-        REQUIRE(l3.index() == -1);
-        REQUIRE(l3.line() == -1);
-        REQUIRE(l3.column() == -1);
+        location = Location{-1, -1, -1};
+        REQUIRE(location.index() == -1);
+        REQUIRE(location.line() == -1);
+        REQUIRE(location.column() == -1);
     }
 
     void testIncrement() {
-        Location l1;
-        l1.increment(false);
-        REQUIRE(l1.index() == 1);
-        REQUIRE(l1.line() == 1);
-        REQUIRE(l1.column() == 2);
+        location = {};
+        location.increment(false);
+        REQUIRE(location.index() == 1);
+        REQUIRE(location.line() == 1);
+        REQUIRE(location.column() == 2);
 
-        l1.increment(true);
-        REQUIRE(l1.index() == 2);
-        REQUIRE(l1.line() == 2);
-        REQUIRE(l1.column() == 1);
+        location.increment(true);
+        REQUIRE(location.index() == 2);
+        REQUIRE(location.line() == 2);
+        REQUIRE(location.column() == 1);
     }
 
-    void testIsNegative() {
-        Location l1;
-        REQUIRE_FALSE(l1.isNotSet());
+    void testIsNotSet() {
+        location = {};
+        REQUIRE_FALSE(location.isNotSet());
 
-        Location l2{-1, 0, 0};
-        REQUIRE(l2.isNotSet());
+        location = Location{-1, 0, 0};
+        REQUIRE(location.isNotSet());
 
-        Location l3{0, -1, 0};
-        REQUIRE(l3.isNotSet());
+        location = Location{0, -1, 0};
+        REQUIRE(location.isNotSet());
 
-        Location l4{0, 0, -1};
-        REQUIRE(l4.isNotSet());
+        location = Location{0, 0, -1};
+        REQUIRE(location.isNotSet());
+    }
+
+    void testToString() {
+        location = {};
+        REQUIRE(location.toString(Location::Format::Compact) == "1:1");
+        REQUIRE(location.toString(Location::Format::CompactWithIndex) == "1:1(0)");
+        REQUIRE(location.toString(Location::Format::Long) == "line 1, column 1");
+        REQUIRE(location.toString(Location::Format::LongWithIndex) == "line 1, column 1 (index 0)");
+
+        location = Location{5, 2, 3};
+        REQUIRE(location.toString(Location::Format::Compact) == "2:3");
+        REQUIRE(location.toString(Location::Format::CompactWithIndex) == "2:3(5)");
+        REQUIRE(location.toString(Location::Format::Long) == "line 2, column 3");
+        REQUIRE(location.toString(Location::Format::LongWithIndex) == "line 2, column 3 (index 5)");
+
+        location = Location{-1, -1, -1};
+        REQUIRE(location.toString(Location::Format::Compact) == "?:?");
+        REQUIRE(location.toString(Location::Format::CompactWithIndex) == "?:?(?)");
+        REQUIRE(location.toString(Location::Format::Long) == "unknown location");
+        REQUIRE(location.toString(Location::Format::LongWithIndex) == "unknown location");
     }
 };
 

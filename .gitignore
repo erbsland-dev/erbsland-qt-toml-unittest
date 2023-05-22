@@ -34,3 +34,5 @@
 # JetBrains Development
 .idea
 cmake-build-*
+_build
+
