@@ -32,7 +32,8 @@
 *.app
 
 # JetBrains Development
-.idea
-cmake-build-*
-_build
+.idea/
+cmake-build-*/
+_build/
+venv/
 
